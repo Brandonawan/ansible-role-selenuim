@@ -69,9 +69,11 @@ If you run into any issues while setting up Selenium, try the following:
   vagrant up
   ```
 
-```
-vagrant provision
-```
+- If you make any changes to the playbook, run the following command to provision the vagrant machine:
+    
+    ```bash
+    vagrant provision
+    ```
 
 ## Contributing
 
