@@ -1,0 +1,16 @@
+# defaults/main.yml
+
+# Google Chrome repository variables
+chrome_signing_key_url: https://dl-ssl.google.com/linux/linux_signing_key.pub
+chrome_repository: "deb [arch=amd64] http://dl.google.com/linux/chrome/deb/ stable main"
+
+# Chromedriver variables
+chromedriver_url: https://edgedl.me.gvt1.com/edgedl/chrome/chrome-for-testing/116.0.5845.96/linux64/chromedriver-linux64.zip
+chromedriver_destination: /tmp/chromedriver.zip
+
+# Selenium Server variables
+selenium_server_url: https://github.com/SeleniumHQ/selenium/releases/download/selenium-4.1.0/selenium-server-4.1.2.jar
+selenium_server_destination: /opt/selenium-server/selenium-server.jar
+
+
+# https://chromedriver.storage.googleapis.com/99.0.4844.51/chromedriver_linux64.zip

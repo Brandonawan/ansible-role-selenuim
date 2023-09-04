@@ -1,0 +1,62 @@
+---
+- name: Import Google Chrome signing key
+  apt_key:
+    url: "{{ chrome_signing_key_url }}"
+    state: present
+
+- name: Add Google Chrome repository
+  apt_repository:
+    repo: "{{ chrome_repository }}"
+    state: present
+
+- name: Update APT cache
+  apt:
+    update_cache: yes
+
+- name: Install Google Chrome
+  apt:
+    name: google-chrome-stable
+    state: latest
+
+- name: Download ChromeDriver
+  get_url:
+    url: "{{ chromedriver_url }}"
+    dest: "{{ chromedriver_destination }}"
+    mode: '0755'
+
+- name: Unzip ChromeDriver
+  shell: unzip -o "{{ chromedriver_destination }}" -d /usr/bin
+  become: yes
+
+- name: Set permissions for ChromeDriver
+  file:
+    path: /usr/bin/chromedriver
+    mode: '0755'
+    owner: root
+    group: root
+
+- name: Create directory for Selenium Server JAR
+  file:
+    path: /opt/selenium-server
+    state: directory
+  become: yes
+
+- name: Download Selenium Server JAR file
+  get_url:
+    url: "{{ selenium_server_url }}"
+    dest: "{{ selenium_server_destination }}"
+    mode: '0755'
+  become: yes
+
+- name: Install xvfb
+  apt:
+    name: xvfb
+    state: present
+
+- name: Start Selenium Server with ChromeDriver
+  command: xvfb-run java -Dwebdriver.chrome.driver=/usr/bin/chromedriver -jar "{{ selenium_server_destination }}"
+  async: 600
+  poll: 0
+  become: yes
+
+
